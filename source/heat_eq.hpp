@@ -51,8 +51,8 @@ class Heat_eq {
 
     for (int i = 1; i < N1; ++i) {
       y = matr[i][i] + matr[i][i - 1] * a[i - 1];
-      a.pushback(-matr[i][i + 1] / y);
-      B.pushback((fa[i] - matr[i][i - 1] * B[i - 1]) / y);
+      a.push_back(-matr[i][i + 1] / y);
+      B.push_back((fa[i] - matr[i][i - 1] * B[i - 1]) / y);
     }
 
     res[N1] = (fa[N1] - matr[N1][N1 - 1] * B[N1 - 1]) / (matr[N1][N1] + matr[N1][N1 - 1] * a[N1 - 1]);
