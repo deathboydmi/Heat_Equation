@@ -1,2 +1,6 @@
 *.json
 *.bin
+/build/*
+*.out
+he_exe
+*.a

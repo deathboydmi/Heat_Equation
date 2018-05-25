@@ -1,5 +1,6 @@
 #include <fstream>
 #include <string>
+#include <iostream>
 #include <array>
 
 #include "./heat_eq.hpp"
@@ -41,15 +42,22 @@ int main (int argc, char* argv[]) {
   }
 
   //input your dir or whatever
-  std::string fileName = "../data/direct_result.bin";
+  std::string fileName = "../data/result_direct.bin";
   
   Heat_eq ourEq(b, arr, L, T, dx, dt);
 
+  //auto impl_res = ourEq.implicit_method();
   auto impl_res = ourEq.implicit_method();
+  size_t size = impl_res.size();
 
-  std::fstream outStream(fileName, std::ios::binary | std::ios::trunc | std::ios::out);
+  for (int i = 0; i<size; i++)
+    std::cout << impl_res[i] << std::endl;
+
+  std::ofstream outStream(fileName, std::ios::binary | std::ios::trunc);
+  outStream.write((char*)&size, sizeof(size_t));
+
   for (int i = 0; i<impl_res.size(); i++)
-    outStream << impl_res[i];
+    outStream.write((char*)&impl_res[i], sizeof(double));
 
   outStream.close();
   return 0;

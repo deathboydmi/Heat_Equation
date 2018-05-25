@@ -152,7 +152,30 @@ public:
     }
 
     std::vector<double> explicit_method() {
-        //
-        return expl_U;
+       
+        std::vector<std::vector<double>> grid;
+        std::vector<double> rod;
+
+        double q = dt/(dx*dx);
+        
+        // firsts values of grid
+        double current_x = 0;
+        for (size_t i = 0; i < n_x; ++i) {
+            rod.push_back(phi_x(current_x));
+            current_x += dx;
+        }
+        grid.push_back(rod);
+
+        for (size_t i = 0; i<n_t; i++)
+        {
+            std::vector<double> newVals;
+            for(size_t j = 0; j<n_x; j++)
+            {
+                newVals.push_back((1-2*q)*grid[i][j] + q*grid[i][j-1] + q*grid[i][j+1]);
+            }
+            grid.push_back(newVals);
+        }
+
+        return expl_U = grid.back();
     }
 };
