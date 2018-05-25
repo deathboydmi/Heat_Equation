@@ -6,21 +6,39 @@
 
 int main (int argc, char* argv[]) {
   
-  //L, X, dt, dx, b(x), a0 -- a6
-  double L = atof(argv[1]);
-  double T = atof(argv[2]);
-  double dt = atof(argv[3]);
-  double dx = atof(argv[4]);
-  std::string b = argv[5];
-  
+  //L, T, dt, dx, b(x), a0 -- a6
+  double L;
+  double T;
+  double dt;
+  double dx;
+  std::string b;
+
   std::array<double, 7> arr;
-  arr[0] = atof(argv[6]);
-  arr[1] = atof(argv[7]);
-  arr[2] = atof(argv[8]);
-  arr[3] = atof(argv[9]);
-  arr[4] = atof(argv[10]);
-  arr[5] = atof(argv[11]);
-  arr[6] = atof(argv[12]);
+
+  if (argc == 13) {
+    L = atof(argv[1]);
+    T = atof(argv[2]);
+    dt = atof(argv[3]);
+    dx = atof(argv[4]);
+    b = argv[5];
+
+    arr[0] = atof(argv[6]);
+    arr[1] = atof(argv[7]);
+    arr[2] = atof(argv[8]);
+    arr[3] = atof(argv[9]);
+    arr[4] = atof(argv[10]);
+    arr[5] = atof(argv[11]);
+    arr[6] = atof(argv[12]);
+    
+  } else {
+    L = 10;
+    T = 10;
+    dx = 1;
+    dt = 1;
+    b = "20";
+
+    arr = {2, 8, 7, 8, 11, 45, 40};
+  }
 
   //input your dir or whatever
   std::string fileName = "../data/direct_result.bin";
