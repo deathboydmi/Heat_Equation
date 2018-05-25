@@ -34,15 +34,19 @@ int main (int argc, char* argv[]) {
   } else {
     L = 10;
     T = 10;
-    dx = 1;
-    dt = 1;
-    b = "20";
+    dx = 0.01;
+    dt = 0.0001;
+    b = "sin(x)";
 
-    arr = {2, 8, 7, 8, 11, 45, 40};
+    arr = {1, 1, 1, 1, 1, 1, 1};
   }
 
   //input your dir or whatever
+<<<<<<< HEAD
   std::string fileName = "../data/result_direct.bin";
+=======
+  std::string fileName = "../data/direct_result";
+>>>>>>> 16943e89d38dcaf22fd1a44493bf369aa7ca266e
   
   Heat_eq ourEq(b, arr, L, T, dx, dt);
 
