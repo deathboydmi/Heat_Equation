@@ -12,13 +12,15 @@ direct_file = "../data/result_direct.bin"
 indirect_file = "../data/result_indirect.bin"
 
 direct_handle = open(direct_file, "rb")
-rows = int.from_bytes(direct_handle.read(4), byteorder='little', signed=False)
-cols = int.from_bytes(direct_handle.read(4), byteorder='little', signed=False)
+size = int.from_bytes(direct_handle.read(4), byteorder='little', signed=False)
 
-print(rows)
-print(cols)
+print(size)
 
-data_direct = np.empty((rows, cols), dtype = float)
+data_direct = np.empty((size), dtype = float)
+
+for i in range(0, size):
+    data_direct[i] = struct.unpack('<d', direct_handle.read(8))[0]
+
+print(data_direct)
 
 direct_handle.close()
-
