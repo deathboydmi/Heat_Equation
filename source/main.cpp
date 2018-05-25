@@ -42,11 +42,7 @@ int main (int argc, char* argv[]) {
   }
 
   //input your dir or whatever
-<<<<<<< HEAD
-  std::string fileName = "../data/result_direct.bin";
-=======
   std::string fileName = "../data/direct_result";
->>>>>>> 16943e89d38dcaf22fd1a44493bf369aa7ca266e
   
   Heat_eq ourEq(b, arr, L, T, dx, dt);
 
