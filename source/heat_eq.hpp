@@ -2,6 +2,10 @@
 #include <vector>
 #include <array>
 #include <cmath>
+#include <algorithm>
+#include <iterator>
+#include <iomanip>
+#include <iostream>
 
 #include "./tofunction/tofunction.h"
 
@@ -41,7 +45,7 @@ class Heat_eq {
 
     std::vector<std::vector<double>> init_trid_matr(std::vector<std::vector<double>> &trid_matr) {
         auto q = -dt / (dx * dx);
-        auto p = 2 * q + 1;
+        auto p = - 2 * q + 1;
 
         std::vector<double> tmp;
 
@@ -140,14 +144,23 @@ public:
 
         for (size_t i = 0; i < n_t; ++i) {
             std::vector<double> free_vals;
-            for (size_t j = 1; j < n_x - 1; ++j) {
-                free_vals.push_back(rod[j] * f_x[j]);
+            for (size_t j = 0; j < n_x - 2; ++j) {
+                auto tm = rod[j] * f_x[j];
+                free_vals.push_back(tm);
             }
             rod = TDMA(trid_matr, free_vals);
             rod.insert(rod.cbegin(), rod[0]);
             rod.push_back(rod.back());
             grid.push_back(rod);
         }
+//        std::for_each(grid.begin(), grid.end(), [](std::vector<double>& ivec)
+//        {
+//            std::for_each(ivec.begin(), ivec.end(), [](double i)
+//            {
+//                std::cout << "  " << i;
+//            });
+//            std::cout << std::endl;
+//        });
         return impl_U = grid.back();
     }
 
