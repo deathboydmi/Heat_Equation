@@ -40,8 +40,16 @@ print()
 print(data_indirect_first)
 print(data_indirect_last)
 
+ppl.figure(300)
+ppl.title("Direct")
 ppl.plot(data_direct_last)
 ppl.plot(data_direct_first)
+ppl.show()
+
+ppl.figure(200)
+ppl.title("Inirect")
+ppl.plot(data_indirect_last)
+ppl.plot(data_indirect_first)
 ppl.show()
 
 direct_handle.close()
