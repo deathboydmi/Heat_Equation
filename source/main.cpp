@@ -15,7 +15,8 @@ int main (int argc, char* argv[]) {
   std::string b;
 
   std::array<double, 7> arr;
-  std::vector<double> first_layer;
+  std::vector<double> first_layer_direct;
+  std::vector<double> first_layer_indirect;
 
 
   if (argc == 13) {
@@ -49,8 +50,8 @@ int main (int argc, char* argv[]) {
   
   Heat_eq ourEq(b, arr, L, T, dx, dt);
 
-  auto impl_res = ourEq.implicit_method(first_layer);
-  auto expl_res = ourEq.explicit_method(first_layer);
+  auto impl_res = ourEq.implicit_method(first_layer_indirect);
+  auto expl_res = ourEq.explicit_method(first_layer_direct);
   
   size_t size = impl_res.size();
 
@@ -71,31 +72,30 @@ int main (int argc, char* argv[]) {
   std::ofstream outStreamDirect(fileNameDirect, std::ios::binary | std::ios::trunc);
   outStreamDirect.write((char*)&size, sizeof(size_t));
 
-  for (size_t i = 0; i < first_layer.size(); i++)
+  for (size_t i = 0; i < first_layer_direct.size(); i++)
   {
-    outStreamDirect.write((char*)&first_layer[i], sizeof(double));
+    outStreamDirect.write((char*)&first_layer_direct[i], sizeof(double));
+  }
+  for (size_t i = 0; i < expl_res.size(); i++)
+  {
+    outStreamDirect.write((char*)&expl_res[i], sizeof(double));
   }
 
-  for (size_t i = 0; i < impl_res.size(); i++)
-  {
-    outStreamDirect.write((char*)&impl_res[i], sizeof(double));
-  }
+  outStreamDirect.close();
 
   //Stream for implicit
   std::ofstream outStreamIndirect(fileNameIndirect, std::ios::binary | std::ios::trunc);
   outStreamIndirect.write((char*)&size, sizeof(size_t));
 
-  for (size_t i = 0; i < first_layer.size(); i++)
+  for (size_t i = 0; i < first_layer_indirect.size(); i++)
   {
-    outStreamIndirect.write((char*)&first_layer[i], sizeof(double));
+    outStreamIndirect.write((char*)&first_layer_indirect[i], sizeof(double));
+  }
+  for (size_t i = 0; i < impl_res.size(); i++)
+  {
+    outStreamIndirect.write((char*)&impl_res[i], sizeof(double));
   }
 
-  for (size_t i = 0; i < expl_res.size(); i++)
-  {
-    outStreamIndirect.write((char*)&expl_res[i], sizeof(double));
-  }
-
-  outStreamDirect.close();
   outStreamIndirect.close();
   return 0;
 }
