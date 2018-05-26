@@ -53,16 +53,19 @@ int main (int argc, char* argv[]) {
   auto expl_res = ourEq.explicit_method(first_layer);
   
   size_t size = impl_res.size();
-  /*
-  std::cout << std::endl;
-   for (int i = 0; i<size; i++)
-     std::cout << impl_res[i] << "  ";
 
-    std::cout << std::endl << std::endl;
-
-    for (int i = 0; i<size; i++)
-        std::cout << expl_res[i] << "  ";
-  */
+//  for (int i = 0; i<size; i++)
+//    std::cout << first_layer[i] << "  ";
+//
+//  std::cout << std::endl << std::endl;
+//
+//  for (int i = 0; i<size; i++)
+//    std::cout << impl_res[i] << "  ";
+//
+//  std::cout << std::endl << std::endl;
+//
+//  for (int i = 0; i<size; i++)
+//    std::cout << expl_res[i] << "  ";
 
   //Stream for explicit
   std::ofstream outStreamDirect(fileNameDirect, std::ios::binary | std::ios::trunc);
@@ -70,13 +73,11 @@ int main (int argc, char* argv[]) {
 
   for (size_t i = 0; i < first_layer.size(); i++)
   {
-    std::cout << first_layer[i] << "   ";
     outStreamDirect.write((char*)&first_layer[i], sizeof(double));
   }
-  std::cout << std::endl;
+
   for (size_t i = 0; i < impl_res.size(); i++)
   {
-    std::cout << impl_res[i] << "   ";
     outStreamDirect.write((char*)&impl_res[i], sizeof(double));
   }
 
@@ -86,13 +87,11 @@ int main (int argc, char* argv[]) {
 
   for (size_t i = 0; i < first_layer.size(); i++)
   {
-    std::cout << first_layer[i] << "   ";
     outStreamIndirect.write((char*)&first_layer[i], sizeof(double));
   }
-  std::cout << std::endl;
-  for (size_t i = 0; i < impl_res.size(); i++)
+
+  for (size_t i = 0; i < expl_res.size(); i++)
   {
-    std::cout << impl_res[i] << "   ";
     outStreamIndirect.write((char*)&expl_res[i], sizeof(double));
   }
 
