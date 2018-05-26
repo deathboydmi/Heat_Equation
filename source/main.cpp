@@ -54,16 +54,19 @@ int main (int argc, char* argv[]) {
   auto expl_res = ourEq.explicit_method(first_layer_direct);
   
   size_t size = impl_res.size();
-  /*
-  std::cout << std::endl;
-   for (int i = 0; i<size; i++)
-     std::cout << impl_res[i] << "  ";
 
-    std::cout << std::endl << std::endl;
-
-    for (int i = 0; i<size; i++)
-        std::cout << expl_res[i] << "  ";
-  */
+//  for (int i = 0; i<size; i++)
+//    std::cout << first_layer[i] << "  ";
+//
+//  std::cout << std::endl << std::endl;
+//
+//  for (int i = 0; i<size; i++)
+//    std::cout << impl_res[i] << "  ";
+//
+//  std::cout << std::endl << std::endl;
+//
+//  for (int i = 0; i<size; i++)
+//    std::cout << expl_res[i] << "  ";
 
   //Stream for explicit
   std::ofstream outStreamDirect(fileNameDirect, std::ios::binary | std::ios::trunc);
