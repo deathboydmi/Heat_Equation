@@ -40,7 +40,7 @@ class Heat_eq {
             phi += a[i] * cos(i * eto * x);
         }
 
-        return phi;
+        return 5;
     }
 
     std::vector<std::vector<double>> init_trid_matr(std::vector<std::vector<double>> &trid_matr) {
@@ -153,14 +153,14 @@ public:
             rod.push_back(rod.back());
             grid.push_back(rod);
         }
-//        std::for_each(grid.begin(), grid.end(), [](std::vector<double>& ivec)
-//        {
-//            std::for_each(ivec.begin(), ivec.end(), [](double i)
-//            {
-//                std::cout << "  " << i;
-//            });
-//            std::cout << std::endl;
-//        });
+       /* std::for_each(grid.begin(), grid.end(), [](std::vector<double>& ivec)
+       {
+           std::for_each(ivec.begin(), ivec.end(), [](double i)
+           {
+               std::cout << "  " << i;
+           });
+           std::cout << std::endl;
+       }); */
         return impl_U = grid.back();
     }
 
@@ -182,13 +182,23 @@ public:
         for (size_t i = 0; i<n_t; i++)
         {
             std::vector<double> newVals;
-            for(size_t j = 0; j<n_x; j++)
+            for(size_t j = 1; j<n_x-1; j++)
             {
-                newVals.push_back((1-2*q)*grid[i][j] + q*grid[i][j-1] + q*grid[i][j+1]);
+                double value = q*(grid[i][j-1]-2*grid[i][j]+grid[i][j+1])+grid[i][j]+(b_x(dx*j)*grid[i][j]*dt);
+                newVals.push_back(value);
             }
+            newVals.insert(newVals.cbegin(), newVals[0]);
+            newVals.push_back(newVals.back());
             grid.push_back(newVals);
         }
-
+       std::for_each(grid.begin(), grid.end(), [](std::vector<double>& ivec)
+       {
+           std::for_each(ivec.begin(), ivec.end(), [](double i)
+           {
+               std::cout << "  " << i;
+           });
+           std::cout << std::endl;
+       });
         return expl_U = grid.back();
     }
 };

@@ -32,11 +32,11 @@ int main (int argc, char* argv[]) {
     arr[6] = atof(argv[12]);
     
   } else {
-    L = 10;
-    T = 10;
-    dx = 0.01;
-    dt = 0.0001;
-    b = "sin(x)";
+    L = 1;
+    T = 1;
+    dx = 0.1;
+    dt = 0.001;
+    b = "1";
 
     arr = {1, 1, 1, 1, 1, 1, 1};
   }
@@ -47,11 +47,11 @@ int main (int argc, char* argv[]) {
   Heat_eq ourEq(b, arr, L, T, dx, dt);
 
   //auto impl_res = ourEq.implicit_method();
-  auto impl_res = ourEq.implicit_method();
+  auto impl_res = ourEq.explicit_method();
   size_t size = impl_res.size();
 
-  for (int i = 0; i<size; i++)
-    std::cout << impl_res[i] << std::endl;
+  // for (int i = 0; i<size; i++)
+  //   std::cout << impl_res[i] << std::endl;
 
   std::ofstream outStream(fileName, std::ios::binary | std::ios::trunc);
   outStream.write((char*)&size, sizeof(size_t));
