@@ -33,16 +33,6 @@ class Heat_eq {
         return _b.Calculate(x);
     }
 
-    double phi_x(double x) {
-        auto phi = a[0];
-        auto eto = PI / L;
-        for (unsigned i = 1; i < 7; ++i) {
-            phi += a[i] * cos(i * eto * x);
-        }
-
-        return 5;
-    }
-
     std::vector<std::vector<double>> init_trid_matr(std::vector<std::vector<double>> &trid_matr) {
         auto q = -dt / (dx * dx);
         auto p = - 2 * q + 1;
@@ -119,13 +109,23 @@ public:
         _b.SetFunction(b);
     }
 
-    std::vector<double> implicit_method() {
+    double phi_x(double x) {
+        auto phi = a[0];
+        auto eto = PI / L;
+        for (unsigned i = 1; i < 7; ++i) {
+            phi += a[i] * cos(i * eto * x);
+        }
+        return phi;
+    }
+
+    std::vector<double> implicit_method(std::vector<double> &first_layer) {
         std::vector<std::vector<double>> grid;
         std::vector<double> rod;
 
         // firsts values of grid
         double current_x = 0;
         for (size_t i = 0; i < n_x; ++i) {
+            first_layer.push_back(phi_x(current_x));
             rod.push_back(phi_x(current_x));
             current_x += dx;
         }
@@ -164,7 +164,7 @@ public:
         return impl_U = grid.back();
     }
 
-    std::vector<double> explicit_method() {
+    std::vector<double> explicit_method(std::vector<double> &first_layer) {
        
         std::vector<std::vector<double>> grid;
         std::vector<double> rod;
@@ -175,6 +175,7 @@ public:
         double current_x = 0;
         for (size_t i = 0; i < n_x; ++i) {
             rod.push_back(phi_x(current_x));
+            first_layer.push_back(phi_x(current_x));
             current_x += dx;
         }
         grid.push_back(rod);
@@ -191,14 +192,14 @@ public:
             newVals.push_back(newVals.back());
             grid.push_back(newVals);
         }
-       std::for_each(grid.begin(), grid.end(), [](std::vector<double>& ivec)
+       /* std::for_each(grid.begin(), grid.end(), [](std::vector<double>& ivec)
        {
            std::for_each(ivec.begin(), ivec.end(), [](double i)
            {
                std::cout << "  " << i;
            });
            std::cout << std::endl;
-       });
+       }); */
         return expl_U = grid.back();
     }
 };
