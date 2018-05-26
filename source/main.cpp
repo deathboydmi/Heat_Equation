@@ -15,6 +15,8 @@ int main (int argc, char* argv[]) {
   std::string b;
 
   std::array<double, 7> arr;
+  std::vector<double> first_layer;
+
 
   if (argc == 13) {
     L = atof(argv[1]);
@@ -42,14 +44,16 @@ int main (int argc, char* argv[]) {
   }
 
   //input your dir or whatever
-  std::string fileName = "../data/direct_result";
+  std::string fileName = "../data/direct_result.bin";
   
   Heat_eq ourEq(b, arr, L, T, dx, dt);
 
   auto impl_res = ourEq.implicit_method();
   auto expl_res = ourEq.explicit_method();
+  
   size_t size = impl_res.size();
-
+  /*
+  std::cout << std::endl;
    for (int i = 0; i<size; i++)
      std::cout << impl_res[i] << "  ";
 
@@ -57,12 +61,21 @@ int main (int argc, char* argv[]) {
 
     for (int i = 0; i<size; i++)
         std::cout << expl_res[i] << "  ";
-
+  */
   std::ofstream outStream(fileName, std::ios::binary | std::ios::trunc);
   outStream.write((char*)&size, sizeof(size_t));
 
-  for (int i = 0; i<impl_res.size(); i++)
+  for (size_t i = 0; i < first_layer.size(); i++)
+  {
+    std::cout << first_layer[i] << "   ";
+    outStream.write((char*)&first_layer[i], sizeof(double));
+  }
+  std::cout << std::endl;
+  for (size_t i = 0; i < impl_res.size(); i++)
+  {
+    std::cout << impl_res[i] << "   ";
     outStream.write((char*)&impl_res[i], sizeof(double));
+  }
 
   outStream.close();
   return 0;
