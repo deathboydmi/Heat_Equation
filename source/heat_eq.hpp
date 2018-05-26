@@ -40,7 +40,7 @@ class Heat_eq {
             phi += a[i] * cos(i * eto * x);
         }
 
-        return 5;
+        return phi;
     }
 
     std::vector<std::vector<double>> init_trid_matr(std::vector<std::vector<double>> &trid_matr) {
@@ -145,22 +145,21 @@ public:
         for (size_t i = 0; i < n_t; ++i) {
             std::vector<double> free_vals;
             for (size_t j = 0; j < n_x - 2; ++j) {
-                auto tm = rod[j] * f_x[j];
-                free_vals.push_back(tm);
+                free_vals.push_back(rod[j] * f_x[j]);
             }
             rod = TDMA(trid_matr, free_vals);
             rod.insert(rod.cbegin(), rod[0]);
             rod.push_back(rod.back());
             grid.push_back(rod);
         }
-       /* std::for_each(grid.begin(), grid.end(), [](std::vector<double>& ivec)
-       {
-           std::for_each(ivec.begin(), ivec.end(), [](double i)
-           {
-               std::cout << "  " << i;
-           });
-           std::cout << std::endl;
-       }); */
+//       std::for_each(grid.begin(), grid.end(), [](std::vector<double>& ivec)
+//       {
+//           std::for_each(ivec.begin(), ivec.end(), [](double i)
+//           {
+//               std::cout << "  " << i;
+//           });
+//           std::cout << std::endl;
+//       });
         return impl_U = grid.back();
     }
 
@@ -179,26 +178,33 @@ public:
         }
         grid.push_back(rod);
 
-        for (size_t i = 0; i<n_t; i++)
+        std::vector<double> f_x;
+        current_x = 0;
+        for (size_t i = 0; i < n_x; ++i) {
+            f_x.push_back( -2 * q + 1 + dt * b_x(current_x));
+            current_x += dx;
+        }
+
+        for (size_t i = 0; i < n_t; ++i)
         {
             std::vector<double> newVals;
-            for(size_t j = 1; j<n_x-1; j++)
+            for(size_t j = 1; j < n_x - 1; ++j)
             {
-                double value = q*(grid[i][j-1]-2*grid[i][j]+grid[i][j+1])+grid[i][j]+(b_x(dx*j)*grid[i][j]*dt);
+                double value = q * (grid[i][j - 1] + grid[i][j + 1]) + grid[i][j] * f_x[j];
                 newVals.push_back(value);
             }
             newVals.insert(newVals.cbegin(), newVals[0]);
             newVals.push_back(newVals.back());
             grid.push_back(newVals);
         }
-       std::for_each(grid.begin(), grid.end(), [](std::vector<double>& ivec)
-       {
-           std::for_each(ivec.begin(), ivec.end(), [](double i)
-           {
-               std::cout << "  " << i;
-           });
-           std::cout << std::endl;
-       });
+//       std::for_each(grid.begin(), grid.end(), [](std::vector<double>& ivec)
+//       {
+//           std::for_each(ivec.begin(), ivec.end(), [](double i)
+//           {
+//               std::cout << "  " << i;
+//           });
+//           std::cout << std::endl;
+//       });
         return expl_U = grid.back();
     }
 };

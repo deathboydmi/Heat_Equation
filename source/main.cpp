@@ -32,13 +32,13 @@ int main (int argc, char* argv[]) {
     arr[6] = atof(argv[12]);
     
   } else {
-    L = 1;
-    T = 1;
-    dx = 0.1;
-    dt = 0.001;
-    b = "1";
+    L = 100;
+    T = 10;
+    dx = 9;
+    dt = 0.75;
+    b = "sin(x)";
 
-    arr = {1, 1, 1, 1, 1, 1, 1};
+    arr = {0.25, 1, 0.5, 0.3, 0.78, 0.01, 0.02};
   }
 
   //input your dir or whatever
@@ -46,12 +46,17 @@ int main (int argc, char* argv[]) {
   
   Heat_eq ourEq(b, arr, L, T, dx, dt);
 
-  //auto impl_res = ourEq.implicit_method();
-  auto impl_res = ourEq.explicit_method();
+  auto impl_res = ourEq.implicit_method();
+  auto expl_res = ourEq.explicit_method();
   size_t size = impl_res.size();
 
-  // for (int i = 0; i<size; i++)
-  //   std::cout << impl_res[i] << std::endl;
+   for (int i = 0; i<size; i++)
+     std::cout << impl_res[i] << "  ";
+
+    std::cout << std::endl << std::endl;
+
+    for (int i = 0; i<size; i++)
+        std::cout << expl_res[i] << "  ";
 
   std::ofstream outStream(fileName, std::ios::binary | std::ios::trunc);
   outStream.write((char*)&size, sizeof(size_t));
