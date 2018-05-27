@@ -10,18 +10,18 @@ if len(sys.argv) == 13:
     my_argv = sys.argv
     my_argv[0] = "../bin/he_exe"
 else:
-    #my_argv.append("../bin/he_exe")
-    #my_argv.append(input("Enter length of rod: "))
-    #my_argv.append(input("Enter the time: "))
-    #my_argv.append(input("Enter the step of length: "))
-    #my_argv.append(input("Enter the step of time: "))
-    #my_argv.append(input("Enter the function b(x): "))
-    #
-    #for i in range(7):
-    #    my_argv.append("")
-    #my_argv[6:13] = list(input("Enter the coeficients (7) of function phi(x):\n\t").split())
+    my_argv.append("../bin/he_exe")
+    my_argv.append(input("Enter length of rod: "))
+    my_argv.append(input("Enter the time: "))
+    my_argv.append(input("Enter the step of length: "))
+    my_argv.append(input("Enter the step of time: "))
+    my_argv.append(input("Enter the function b(x): "))
+    
+    for i in range(7):
+        my_argv.append("")
+    my_argv[6:13] = list(input("Enter the coeficients (7) of function phi(x):\n\t").split())
 
-    my_argv = ["../bin/he_exe", "10", "10", "1", "0.1", "sin(x)", "1", "1", "1", "1", "1", "1", "1"]
+    #my_argv = ["../bin/he_exe", "100", "10", "10", "0.01", "sin(x)", "0.25", "1", "0.5", "0.3", "0.78", "0.01", "0.02"]
     
 print("Starting work")
 func_call = sp.call(my_argv)
@@ -75,16 +75,3 @@ ax.set_ylabel('u(x,T)')
 ax.legend()
 
 plt.show()
-
-# ppl.figure(300)
-# ppl.title("Direct")
-# ppl.plot(expl_UT)
-# ppl.plot(impl_UT)
-# ppl.plot(expl_U0)
-# ppl.show()
-
-# ppl.figure(200)
-# ppl.title("Inirect")
-# ppl.plot(impl_UT)
-# ppl.plot(impl_U0)
-# ppl.show()
