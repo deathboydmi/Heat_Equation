@@ -22,8 +22,8 @@ int main (int argc, char* argv[]) {
   if (argc == 13) {
     L = atof(argv[1]);
     T = atof(argv[2]);
-    dt = atof(argv[3]);
-    dx = atof(argv[4]);
+    dx = atof(argv[3]);
+    dt = atof(argv[4]);
     b = argv[5];
 
     arr[0] = atof(argv[6]);
