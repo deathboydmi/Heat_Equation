@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     double dx;
     std::string b;
 
-    double arr[7] = {0.25, 1, 0.5, 0.3, 0.78, 0.01, 0.02};
+    double arr[7] = {0.4, 0.11, 0.5, 0.21, 0.5, 0.3, 0.6};
 
     if (argc == 13)
     {
@@ -50,9 +50,9 @@ int main(int argc, char *argv[])
     {
         L = 1;
         T = 1;
-        dx = 0.01;
+        dx = 0.1;
         dt = 0.001;
-        b = "1";
+        b = "x";
     }
 
     ToFunction b_func(b);
@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
         current_x += dx;
     }
 
-    double f_x[n_x];
+    double* f_x = new double[n_x];
     current_x = 0;
     for (size_t i = 0; i < n_x; ++i)
     {
@@ -90,13 +90,13 @@ int main(int argc, char *argv[])
 
     for (size_t i = 0; i < n_t-1; i++)
     {
-        for (size_t j = 1; j < n_x - 1; j++)
+        for (size_t j = 1; j < n_x; j++)
         {
             double value = q * (grid[i][j - 1] + grid[i][j + 1]) + grid[i][j] * f_x[j];
             grid[i+1][j] = value;
         }
         grid[i][0] = grid[i][1];
-        grid[i][n_x - 1] = grid[i][n_x];
+        grid[i][n_x - 2] = grid[i][n_x - 1];
     }
 
     for (size_t i = 0; i < n_t; i++)
