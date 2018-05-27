@@ -55,19 +55,19 @@ int main (int argc, char* argv[]) {
   
   size_t size = impl_res.size();
 
-  for (int i = 0; i<size; i++)
-    std::cout << first_layer_indirect[i] << "  ";
+  // for (int i = 0; i<size; i++)
+  //   std::cout << first_layer_indirect[i] << "  ";
 
-  std::cout << std::endl << std::endl;
+  // std::cout << std::endl << std::endl;
 
-  for (int i = 0; i<size; i++)
-    std::cout << impl_res[i] << "  ";
+  // for (int i = 0; i<size; i++)
+  //   std::cout << impl_res[i] << "  ";
 
-  std::cout << std::endl << std::endl;
+  // std::cout << std::endl << std::endl;
 
-  for (int i = 0; i<size; i++)
-    std::cout << expl_res[i] << "  ";
-  std::cout << std::endl;
+  // for (int i = 0; i<size; i++)
+  //   std::cout << expl_res[i] << "  ";
+  // std::cout << std::endl;
 
   //Stream for explicit
   std::ofstream outStreamDirect(fileNameDirect, std::ios::binary | std::ios::trunc);
