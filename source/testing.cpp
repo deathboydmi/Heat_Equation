@@ -79,7 +79,15 @@ int main(int argc, char *argv[])
         f_x[i] = -2 * q + 1 + dt * b_x(b_func, current_x);
         current_x += dx;
     }
-    
+
+    //Convergence test
+    //Should be 2*D but in our case D=1
+    if (dt > pow(dx, 2) / (2 * 1))
+    {
+        std::cout << "NOPE";
+        return -1;
+    }
+
     for (size_t i = 0; i < n_t-1; i++)
     {
         for (size_t j = 1; j < n_x - 1; j++)
