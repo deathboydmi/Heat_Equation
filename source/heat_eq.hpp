@@ -161,7 +161,7 @@ public:
         //    });
         //    std::cout << std::endl;
         //});
-        //return impl_U = grid.back();
+        return impl_U = grid.back();
     }
 
     std::vector<double> explicit_method(std::vector<double> &first_layer) {

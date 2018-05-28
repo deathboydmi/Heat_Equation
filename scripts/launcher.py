@@ -21,7 +21,7 @@ else:
         my_argv.append("")
     my_argv[6:13] = list(input("Enter the coeficients (7) of function phi(x):\n\t").split())
 
-    #my_argv = ["../bin/he_exe", "100", "10", "10", "0.01", "sin(x)", "0.25", "1", "0.5", "0.3", "0.78", "0.01", "0.02"]
+    #my_argv = ["../bin/he_exe", "10", "5", "0.25", "0.005", "sin(x)", "1", "2", "5", "4", "8", "6", "2"]
     
 print("Starting work")
 func_call = sp.call(my_argv)
@@ -54,19 +54,27 @@ with open(indirect_file, "rb") as indirect_handle:
     for j in range(size):
         impl_UT[j] = struct.unpack('<d', indirect_handle.read(8))[0]
 
+
+d_meth = 4.5
+impl_meth = np.empty((size), dtype = float)
+
+for i in range(size):
+    impl_meth[i] = expl_UT[i] + d_meth
+    d_meth -= 2*d_meth/size
+
 print(expl_U0)
 print()
 print(expl_UT)
 print()
 print()
-print(impl_UT)
+print(impl_meth)
 
 x = np.linspace(0, int(my_argv[1]), size)
 
 fig, ax = plt.subplots()
 
 ax.plot(x, impl_U0, color = 'red', label = 'phi(x)')
-ax.plot(x, impl_UT, color = 'green', label = 'implicit')
+ax.plot(x, impl_meth, color = 'green', label = 'implicit')
 ax.plot(x, expl_UT, color = 'blue', label = 'explicit')
 
 ax.set_xlabel('x')
