@@ -152,14 +152,15 @@ public:
             rod.push_back(rod.back());
             grid.push_back(rod);
         }
-//       std::for_each(grid.begin(), grid.end(), [](std::vector<double>& ivec)
-//       {
-//           std::for_each(ivec.begin(), ivec.end(), [](double i)
-//           {
-//               std::cout << "  " << i;
-//           });
-//           std::cout << std::endl;
-//       });
+    
+        //std::for_each(grid.begin(), grid.end(), [](std::vector<double>& ivec)
+        //{
+        //    std::for_each(ivec.begin(), ivec.end(), [](double i)
+        //    {
+        //        std::cout << "  " << i;
+        //    });
+        //    std::cout << std::endl;
+        //});
         return impl_U = grid.back();
     }
 
@@ -186,7 +187,7 @@ public:
             current_x += dx;
         }
 
-        for (size_t i = 0; i < n_t; ++i)
+        for (size_t i = 0; i < n_t - 1; ++i)
         {
             std::vector<double> newVals;
             for(size_t j = 1; j < n_x - 1; ++j)
@@ -199,14 +200,14 @@ public:
             grid.push_back(newVals);
         }
 
-//       std::for_each(grid.begin(), grid.end(), [](std::vector<double>& ivec)
-//       {
-//           std::for_each(ivec.begin(), ivec.end(), [](double i)
-//           {
-//               std::cout << "  " << i;
-//           });
-//           std::cout << std::endl;
-//       });
+      //std::for_each(grid.begin(), grid.end(), [](std::vector<double>& ivec)
+      //{
+      //    std::for_each(ivec.begin(), ivec.end(), [](double i)
+      //    {
+      //        std::cout << "  " << i;
+      //    });
+      //    std::cout << std::endl;
+      //});
         return expl_U = grid.back();
     }
 };

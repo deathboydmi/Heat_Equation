@@ -7,7 +7,7 @@
 
 int main (int argc, char* argv[]) {
   
-  //L, T, dt, dx, b(x), a0 -- a6
+  //L, T, dx, dt, b(x), a0 -- a6
   double L;
   double T;
   double dt;
@@ -22,8 +22,8 @@ int main (int argc, char* argv[]) {
   if (argc == 13) {
     L = atof(argv[1]);
     T = atof(argv[2]);
-    dt = atof(argv[3]);
-    dx = atof(argv[4]);
+    dx = atof(argv[3]);
+    dt = atof(argv[4]);
     b = argv[5];
 
     arr[0] = atof(argv[6]);
@@ -37,7 +37,7 @@ int main (int argc, char* argv[]) {
   } else {
     L = 100;
     T = 10;
-    dx = 9;
+    dx = 10;
     dt = 0.75;
     b = "sin(x)";
 
@@ -55,18 +55,19 @@ int main (int argc, char* argv[]) {
   
   size_t size = impl_res.size();
 
-//  for (int i = 0; i<size; i++)
-//    std::cout << first_layer[i] << "  ";
-//
-//  std::cout << std::endl << std::endl;
-//
-//  for (int i = 0; i<size; i++)
-//    std::cout << impl_res[i] << "  ";
-//
-//  std::cout << std::endl << std::endl;
-//
-//  for (int i = 0; i<size; i++)
-//    std::cout << expl_res[i] << "  ";
+  // for (int i = 0; i<size; i++)
+  //   std::cout << first_layer_indirect[i] << "  ";
+
+  // std::cout << std::endl << std::endl;
+
+  // for (int i = 0; i<size; i++)
+  //   std::cout << impl_res[i] << "  ";
+
+  // std::cout << std::endl << std::endl;
+
+  // for (int i = 0; i<size; i++)
+  //   std::cout << expl_res[i] << "  ";
+  // std::cout << std::endl;
 
   //Stream for explicit
   std::ofstream outStreamDirect(fileNameDirect, std::ios::binary | std::ios::trunc);
